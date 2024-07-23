@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commandez votre Soleil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #ff6600;
+            animation: bounce 1s infinite;
+        }
+        h1 { font-size: 2.5em; }
+        h2 { font-size: 1.8em; }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button, input[type="submit"] {
+            background-color: #ffd700;
+            border: none;
+            color: #333;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #ffcc00;
+            transform: scale(1.05);
+        }
+        input, select, textarea {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 1em;
+            display: block;
+        }
+        .hidden { display: none; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .sun-icon {
+            font-size: 3em;
+            margin: 20px 0;
+            display: inline-block;
+            animation: spin 10s linear infinite;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9em;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        #confirmation {
+            background-color: #e6ffe6;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        #ad-banner {
+            background-color: #ffe6e6;
+            border: 2px dashed #ff6666;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Commandez votre Soleil</h1>
+        <p>Bienvenue sur le seul site où vous pouvez commander le soleil à la carte !</p>
+        <div class="sun-icon">☀️</div>
+        
+        <form id="sunForm">
+            <input type="text" id="lieu" placeholder="Lieu" required>
+            <div class="tooltip">
+                <select id="creneau" required>
+                    <option value="">Choisissez un créneau</option>
+                    <option value="dans l'heure">Dans l'heure</option>
+                    <option value="aujourd'hui">Aujourd'hui</option>
+                    <option value="ce matin">Ce matin</option>
+                    <option value="cet après-midi">Cet après-midi</option>
+                    <option value="ce soir">Ce soir</option>
+                    <option value="demain">Demain</option>
+                    <option value="ce weekend">Ce weekend</option>
+                    <option value="cette semaine">Cette semaine</option>
+                    <option value="la semaine prochaine">La semaine prochaine</option>
+                </select>
+                <span class="tooltiptext">Parce que parfois, même le soleil a un emploi du temps chargé.</span>
+            </div>
+            <textarea id="commentaires" placeholder="Commentaires (optionnel)"></textarea>
+            <input type="submit" value="Envoyer la commande">
+        </form>
+
+        <div id="confirmation" class="hidden">
+            <h2>Confirmation de commande</h2>
+            <p id="confirmationMessage"></p>
+            <p><strong>Garantie Soleil™ :</strong> Si le soleil ne brille pas comme promis, nous vous offrons un parapluie gratuit et une dose de vitamine D.</p>
+            <button onclick="resetForm()">Nouvelle commande</button>
+        </div>
+
+        <div id="ad-banner">
+            <p>🌞 PROMO EXCLUSIVE 🌞</p>
+            <p>Achetez maintenant notre "Kit de Survie Anti-Pluie" et recevez gratuitement un manuel "Comment Danser Sous la Pluie Sans Se Mouiller" !</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sunForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const lieu = document.getElementById('lieu').value;
+            const creneau = document.getElementById('creneau').value;
+            
+            document.getElementById('confirmationMessage').innerHTML = `Le soleil sera présent à <strong>${lieu}</strong> pour <strong>${creneau}</strong>. Préparez vos lunettes de soleil et votre crème solaire !`;
+            
+            document.getElementById('sunForm').classList.add('hidden');
+            document.getElementById('confirmation').classList.remove('hidden');
+        });
+
+        function resetForm() {
+            document.getElementById('sunForm').reset();
+            document.getElementById('sunForm').classList.remove('hidden');
+            document.getElementById('confirmation').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
